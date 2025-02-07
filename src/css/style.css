@@ -1,0 +1,435 @@
+:root {
+  --yellow: rgb(254, 215, 0);
+  --yellow-hover: #f8ed82;
+  --red: #9d051f;
+  --white: #fff;
+  --black: #191919;
+  --card1: #337ab7;
+  --card2: #5cb85c;
+  --card3: #f0ad4e;
+  --card4: #d9534f;
+}
+
+body.login {
+  margin: 0;
+  background-image: url(../assets/images/bg.jpeg);
+  background-position: center center;
+  width: 100vw;
+  min-height: 100vh;
+  background-size: cover;
+  background-repeat: no-repeat;
+  font-size: 14px;
+  overflow-x: hidden;
+}
+
+.dropdown-menu {
+  background-color: var(--red);
+}
+
+.dropdown-menu .dropdown-item {
+  color: var(--yellow);
+  transition: 0, 5s;
+}
+
+.dropdown-menu .dropdown-item:hover {
+  background-color: var(--yellow);
+  color: var(--red);
+}
+
+.navbar {
+  position: fixed;
+  transition: 0.5s;
+  width: 100%;
+}
+
+.navbar .nav-link {
+  color: var(--red);
+  font-weight: 500;
+}
+
+.navbar .nav-item {
+  margin-right: 10px;
+}
+
+.navbar .nav-link.active {
+  color: var(--red);
+  font-weight: bold;
+}
+
+.text-red {
+  color: var(--red);
+}
+
+.text-yellow {
+  color: var(--yellow);
+}
+
+.bg-theme {
+  background-color: var(--yellow);
+}
+
+.wrapper {
+  width: 420px;
+  background: transparent;
+  border: 2px solid var(--red);
+  backdrop-filter: blur(9px);
+  color: var(--white);
+  border-radius: 12px;
+  padding: 30px 40px;
+}
+
+.wrapper h1 {
+  font-size: 36px;
+  text-align: center;
+}
+
+.wrapper .input-box {
+  position: relative;
+  width: 100%;
+  height: 50px;
+  margin: 20px 0;
+}
+
+.input-box input {
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  border: none;
+  outline: none;
+  border: 2px solid var(--red);
+  border-radius: 40px;
+  font-size: 16px;
+  color: var(--red);
+  padding: 20px 40px 20px 20px;
+}
+
+.input-box select {
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  border: none;
+  outline: none;
+  border: 2px solid var(--red);
+  border-radius: 40px;
+  font-size: 16px;
+  color: var(--red);
+  padding: 9px 20px 10px 20px;
+}
+
+.input-box select option {
+  background-color: var(--yellow) !important;
+}
+
+.input-box select option:hover {
+  background-color: var(--red) !important;
+}
+
+.input-box input::placeholder {
+  color: var(--red);
+}
+
+.input-box i {
+  position: absolute;
+  right: 20px;
+  top: 30%;
+  transform: translate(-50%);
+  font-size: 20px;
+
+}
+
+.wrapper .remember-forgot {
+  display: flex;
+  justify-content: space-between;
+  font-size: 14.5px;
+  margin: -15px 0 15px;
+}
+
+.remember-forgot label input {
+  accent-color: var(--white);
+  margin-right: 3px;
+
+}
+
+.remember-forgot a {
+  color: var(--white);
+  text-decoration: none;
+
+}
+
+.remember-forgot a:hover {
+  text-decoration: underline;
+}
+
+.wrapper .btn {
+  width: 100%;
+  height: 45px;
+  background: var(--red);
+  color: var(--yellow);
+  border: none;
+  outline: none;
+  border-radius: 40px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, .1);
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.wrapper .register-link {
+  font-size: 14.5px;
+  text-align: center;
+  margin: 20px 0 15px;
+
+}
+
+.btn {
+  text-transform: capitalize;
+  border-radius: 2px;
+}
+
+.register-link p a {
+  color: var(--white);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.register-link p a:hover {
+  text-decoration: underline;
+}
+
+.main-form {
+  background-color: var(--white);
+  padding: 20px;
+  margin-top: 10%;
+  margin-bottom: 5%;
+}
+
+label {
+  font-size: 12px;
+}
+
+.form-control:focus {
+  box-shadow: none;
+  border-color: var(--yellow);
+}
+
+.btn-theme {
+  background: var(--red);
+  color: var(--white);
+  width: 120px;
+  padding: 8px 12px;
+  border: 2px solid var(--red);
+  outline: none;
+  box-shadow: 0 0 10px rgba(0, 0, 0, .1);
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.btn-theme-outline {
+  border: 2px solid var(--red);
+  color: var(--red);
+  width: 120px;
+  padding: 8px 15px;
+  outline: none;
+  box-shadow: 0 0 10px rgba(0, 0, 0, .1);
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.btn-theme:hover {
+  background: var(--red);
+  color: var(--white);
+}
+
+.btn-theme-outline:hover {
+  border: 2px solid var(--red);
+  color: var(--red);
+}
+
+
+#print .nav-link {
+  border: 2px solid var(--red);
+  color: var(--red);
+}
+
+#print .nav-link.active {
+  background-color: var(--red);
+  color: var(--yellow);
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #faf6d0;
+  display: flex;
+}
+
+table tr th,
+table tr td {
+  font-size: 13px;
+}
+
+table tr th {
+  vertical-align: top;
+}
+
+#sidebar {
+  height: 100vh;
+  width: 250px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: var(--yellow);
+  color: var(--red);
+  padding-top: 10px;
+}
+
+#sidebar ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+#sidebar ul li a {
+  color: var(--red);
+  text-decoration: none;
+  padding: 10px 15px;
+  display: block;
+  font-weight: 500;
+}
+
+#sidebar ul li a.dropdown-toggle::after {
+  content: '▼';
+  font-size: 0.5em;
+}
+
+#sidebar ul li ul li a {
+  padding-left: 30px;
+  color: var(--black);
+}
+
+#sidebar ul li ul.collapse a:hover {
+  background-color: var(--yellow-hover);
+  color: var(--red);
+}
+
+#sidebar ul li a:hover {
+  background-color: var(--yellow-hover);
+  color: var(--red);
+}
+
+#sidebar .navbar-brand img {
+  max-width: 80%;
+  height: auto;
+  margin-bottom: 10px;
+}
+
+#sidebar ul li a.active {
+  background-color: var(--yellow-hover);
+  color: var(--red);
+}
+
+#navbar {
+  margin-left: 250px;
+  position: fixed;
+  width: calc(100% - 250px);
+  z-index: 1030;
+  background-color: var(--red);
+  border-bottom: 1px solid var(--yellow);
+}
+
+#navbar a {
+  color: var(--yellow);
+}
+
+.content {
+  margin-top: 60px;
+  margin-left: 250px;
+  padding: 20px;
+  width: calc(100% - 250px);
+}
+
+
+.btn-theme-outline.sm {
+  border: 1px solid var(--red);
+  width: auto;
+  padding: 5px 5px;
+}
+
+.dt-length {
+  display: none;
+}
+
+.dt-info {
+  display: none;
+}
+
+.dt-search label {
+  display: none;
+}
+
+#dt-search-0::placeholder {
+  font-size: 14px;
+}
+
+/* card 1 */
+.dashboard-cards .card1 .card-header{
+  background: var(--card1);
+  color: var(--white);
+}
+.dashboard-cards .card1 .card-body{
+  background: var(--card1);
+  color: var(--black);
+}
+.dashboard-cards .card1 .card-footer{
+  border: 1px solid var(--card1);
+  color: var(--card1);
+  font-size: 12px;
+}
+
+/* card 2 */
+
+.dashboard-cards .card2 .card-header{
+  background: var(--card2);
+  color: var(--white);
+}
+.dashboard-cards .card2 .card-body{
+  background: var(--card2);
+  color: var(--black);
+}
+.dashboard-cards .card2 .card-footer{
+  border: 1px solid var(--card2);
+  color: var(--card2);
+  font-size: 12px;
+}
+/* card 3 */
+.dashboard-cards .card3 .card-header{
+  background: var(--card3);
+  color: var(--white);
+}
+.dashboard-cards .card3 .card-body{
+  background: var(--card3);
+  color: var(--black);
+}
+.dashboard-cards .card3 .card-footer{
+  border: 1px solid var(--card3);
+  color: var(--card3);
+  font-size: 12px;
+}
+
+/* card 4 */
+
+.dashboard-cards .card4 .card-header{
+  background: var(--card4);
+  color: var(--white);
+}
+.dashboard-cards .card4 .card-body{
+  background: var(--card4);
+  color: var(--black);
+}
+.dashboard-cards .card4 .card-footer{
+  border: 1px solid var(--card4);
+  color: var(--card4);
+  font-size: 12px;
+}
+
