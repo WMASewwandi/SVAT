@@ -65,7 +65,7 @@ const CreateCustomer = ({ onCustomerAdded }) => {
           <div className="form-group mt-1">
             <div className="row">
               <div className="col-4">
-                <label className="text-secondary">IBS Code</label>
+                <label className="text-dark">IBS Code</label>
               </div>
               <div className="col-8">
                 <input
@@ -82,7 +82,7 @@ const CreateCustomer = ({ onCustomerAdded }) => {
           <div className="form-group mt-1">
             <div className="row">
               <div className="col-4">
-                <label className="text-secondary">Sap Code</label>
+                <label className="text-dark">Sap Code</label>
               </div>
               <div className="col-8">
                 <input
@@ -99,7 +99,7 @@ const CreateCustomer = ({ onCustomerAdded }) => {
           <div className="form-group mt-1">
             <div className="row">
               <div className="col-4">
-                <label className="text-secondary">Customer Name</label>
+                <label className="text-dark">Customer Name</label>
               </div>
               <div className="col-8">
                 <input
@@ -116,7 +116,7 @@ const CreateCustomer = ({ onCustomerAdded }) => {
           <div className="form-group mt-1">
             <div className="row">
               <div className="col-4">
-                <label className="text-secondary">VAT No</label>
+                <label className="text-dark">VAT No</label>
               </div>
               <div className="col-8">
                 <input
@@ -133,7 +133,7 @@ const CreateCustomer = ({ onCustomerAdded }) => {
           <div className="form-group mt-1">
             <div className="row">
               <div className="col-4">
-                <label className="text-secondary">SVAT No</label>
+                <label className="text-dark">SVAT No</label>
               </div>
               <div className="col-8">
                 <input
@@ -150,7 +150,7 @@ const CreateCustomer = ({ onCustomerAdded }) => {
           <div className="form-group mt-1">
             <div className="row">
               <div className="col-4">
-                <label className="text-secondary">Address 1</label>
+                <label className="text-dark">Address 1</label>
               </div>
               <div className="col-8">
                 <input
@@ -167,7 +167,7 @@ const CreateCustomer = ({ onCustomerAdded }) => {
           <div className="form-group mt-1">
             <div className="row">
               <div className="col-4">
-                <label className="text-secondary">Address 2</label>
+                <label className="text-dark">Address 2</label>
               </div>
               <div className="col-8">
                 <input
@@ -183,7 +183,7 @@ const CreateCustomer = ({ onCustomerAdded }) => {
           <div className="form-group mt-1">
             <div className="row">
               <div className="col-4">
-                <label className="text-secondary">Address 3</label>
+                <label className="text-dark">Address 3</label>
               </div>
               <div className="col-8">
                 <input
@@ -199,7 +199,7 @@ const CreateCustomer = ({ onCustomerAdded }) => {
           <div className="form-group mt-1">
             <div className="row">
               <div className="col-4">
-                <label className="text-secondary">Email</label>
+                <label className="text-dark">Email</label>
               </div>
               <div className="col-8">
                 <input
@@ -216,7 +216,7 @@ const CreateCustomer = ({ onCustomerAdded }) => {
           <div className="form-group mt-1">
             <div className="row">
               <div className="col-4">
-                <label className="text-secondary">Fax No</label>
+                <label className="text-dark">Fax No</label>
               </div>
               <div className="col-8">
                 <input
@@ -232,7 +232,7 @@ const CreateCustomer = ({ onCustomerAdded }) => {
           <div className="form-group mt-1">
             <div className="row">
               <div className="col-4">
-                <label className="text-secondary">Contact No</label>
+                <label className="text-dark">Contact No</label>
               </div>
               <div className="col-8">
                 <input

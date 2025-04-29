@@ -261,7 +261,7 @@ label {
 body {
   margin: 0;
   padding: 0;
-  background-color: #faf6d0;
+  background-color: #fff;
   display: flex;
 }
 
@@ -344,11 +344,13 @@ table tr th {
 
 .content {
   margin-top: 60px;
-  margin-left: 250px;
   padding: 20px;
-  width: calc(100% - 250px);
+  width: 100%;
 }
 
+.nav-item.dropdown:hover .dropdown-menu {
+  display: block;
+}
 
 .btn-theme-outline.sm {
   border: 1px solid var(--red);

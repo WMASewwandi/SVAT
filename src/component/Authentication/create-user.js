@@ -128,7 +128,7 @@ const CreateUsers = ({ onUserAdded, branches }) => {
                 </h6>
               </div>
               <div className="col-12">
-                <label className="text-secondary">Name</label>
+                <label className="text-dark">Name</label>
               </div>
               <div className="col-12">
                 <input
@@ -145,7 +145,7 @@ const CreateUsers = ({ onUserAdded, branches }) => {
           <div className="form-group mt-1">
             <div className="row">
               <div className="col-12">
-                <label className="text-secondary">Username</label>
+                <label className="text-dark">Username</label>
               </div>
               <div className="col-12">
                 <input
@@ -162,7 +162,7 @@ const CreateUsers = ({ onUserAdded, branches }) => {
           {/* <div className="form-group mt-1">
             <div className="row">
               <div className="col-12">
-                <label className="text-secondary">Password</label>
+                <label className="text-dark">Password</label>
               </div>
               <div className="col-12">
                 <input
@@ -179,10 +179,11 @@ const CreateUsers = ({ onUserAdded, branches }) => {
           <div className="form-group mt-1">
             <div className="row">
               <div className="col-12">
-                <label className="text-secondary">User Role</label>
+                <label className="text-dark">User Role</label>
               </div>
               <div className="col-12">
-                <select onChange={handleChange} name="UserType" className="form-select">
+                <select onChange={handleChange} name="UserType" className="form-select" required>
+                  <option selected disabled>Select a Role</option>
                   {roles.map((role, index) => (
                     <option key={index} value={role.TypeCode}>{role.TypeCode}</option>
                   ))}
@@ -193,7 +194,7 @@ const CreateUsers = ({ onUserAdded, branches }) => {
           {/* <div className="form-group mt-1">
             <div className="row">
               <div className="col-12">
-                <label className="text-secondary">User Type</label>
+                <label className="text-dark">User Type</label>
               </div>
               <div className="col-12">
                 <input
@@ -219,7 +220,7 @@ const CreateUsers = ({ onUserAdded, branches }) => {
                     checked={formData.Inactive}
                     onChange={handleChange}
                   />
-                  <label className="form-check-label">Active</label>
+                  <label className="form-check-label">Inactive</label>
                 </div>
               </div>
             </div>

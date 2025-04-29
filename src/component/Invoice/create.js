@@ -1,9 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Layout from "../Layout";
 import Base_URL from "../../Base/api";
 import { toast, ToastContainer } from "react-toastify";
+import SearchCustomer from "./search-customer";
 
 const CreateSVATInvoice = () => {
+  const inputRef = useRef(null);
+  const accNoInputRef = useRef(null);
   const [items, setItems] = useState([]);
   const [customers, setCustomers] = useState([]);
   const [selectedCustomer, setSelectedCustomer] = useState({});
@@ -135,6 +138,18 @@ const CreateSVATInvoice = () => {
     setSelectedCustomer(customer);
     setIsCustomerDropdownVisible(false);
   };
+  const handleKeyDownEnter = (event) => {
+    if (event.key === "Enter") {
+      event.preventDefault();
+      inputRef.current.focus();
+    }
+  };
+
+  useEffect(() => {
+    if (accNoInputRef.current) {
+      accNoInputRef.current.focus();
+    }
+  }, []);
 
   const handleKeyDown = (e) => {
     if (e.key === "ArrowDown") {
@@ -244,7 +259,7 @@ const CreateSVATInvoice = () => {
       }
 
       const data = await response.json();
-      if(data.Message === "Invoice saved successfully.") {
+      if (data.Message === "Invoice saved successfully.") {
         toast.success(data.Message);
         setDate("");
         setArrivalDate("");
@@ -254,6 +269,14 @@ const CreateSVATInvoice = () => {
     } catch (error) {
       console.error("Error:", error);
     }
+  };
+
+  const CancelSubmit = () => {
+    window.location.reload();
+  };
+
+  const handleCustomerSelect = (customer) => {
+    setSelectedCustomer(customer);
   };
 
   const calculateGrandTotal = () => {
@@ -276,12 +299,16 @@ const CreateSVATInvoice = () => {
       <div className="row">
         <div className="col-12 d-flex justify-content-between">
           <h4 className="text-uppercase text-red">Create SVAT Invoice</h4>
-          <a href="/dhl-svat/invoice" className="btn btn-sm btn-theme-outline sm">
+          {/* <a href="/dhl-svat/invoice" className="btn btn-sm btn-theme-outline sm">
             Go Back
-          </a>
+          </a> */}
         </div>
         <div className="col-12 my-3">
-          <form action="/dhl-svat/invoice" onSubmit={handleSubmit}>
+          <form
+            action="/dhl-svat/invoice"
+            onSubmit={handleSubmit}
+            onKeyDown={handleKeyDownEnter}
+          >
             <div className="row">
               <div className="col-12 mb-3">
                 <h6 className="text-dark fw-bold">General</h6>
@@ -290,24 +317,30 @@ const CreateSVATInvoice = () => {
                 <div className="form-group mt-1">
                   <div className="row">
                     <div className="col-4">
-                      <label className="text-secondary">Account Number</label>
+                      <label className="text-dark">Account Number</label>
                     </div>
                     <div className="col-8 position-relative">
-                      <input
-                        className="form-control form-control-sm"
-                        placeholder="Search Customer by Code"
-                        value={
-                          selectedCustomer
-                            ? selectedCustomer.CustomerCode
-                            : searchTermCustomer
-                        }
-                        onChange={(e) => setSearchTermCustomer(e.target.value)}
-                        onFocus={() =>
-                          searchTermCustomer &&
-                          setIsCustomerDropdownVisible(true)
-                        }
-                        onKeyDown={handleKeyDownCustomer}
-                      />
+                      <div className="d-flex gap-1">
+                        <input
+                          ref={accNoInputRef}
+                          className="form-control form-control-sm"
+                          placeholder="Search Customer by Code"
+                          value={
+                            selectedCustomer
+                              ? selectedCustomer.CustomerCode
+                              : searchTermCustomer
+                          }
+                          onChange={(e) =>
+                            setSearchTermCustomer(e.target.value)
+                          }
+                          onFocus={() =>
+                            searchTermCustomer &&
+                            setIsCustomerDropdownVisible(true)
+                          }
+                          onKeyDown={handleKeyDownCustomer}
+                        />
+                        <SearchCustomer customers={customers} onSelectCustomer={handleCustomerSelect}/>
+                      </div>
 
                       {isCustomerDropdownVisible &&
                         filteredCustomers.length > 0 && (
@@ -335,7 +368,7 @@ const CreateSVATInvoice = () => {
                 <div className="form-group mt-1">
                   <div className="row">
                     <div className="col-4">
-                      <label className="text-secondary">Customer Name</label>
+                      <label className="text-dark">Customer Name</label>
                     </div>
                     <div className="col-8">
                       <input
@@ -352,7 +385,7 @@ const CreateSVATInvoice = () => {
                 <div className="form-group mt-1">
                   <div className="row">
                     <div className="col-4">
-                      <label className="text-secondary">Address 1</label>
+                      <label className="text-dark">Address 1</label>
                     </div>
                     <div className="col-8">
                       <input
@@ -369,7 +402,7 @@ const CreateSVATInvoice = () => {
                 <div className="form-group mt-1">
                   <div className="row">
                     <div className="col-4">
-                      <label className="text-secondary">Address 2</label>
+                      <label className="text-dark">Address 2</label>
                     </div>
                     <div className="col-8">
                       <input
@@ -386,7 +419,7 @@ const CreateSVATInvoice = () => {
                 <div className="form-group mt-1">
                   <div className="row">
                     <div className="col-4">
-                      <label className="text-secondary">Address 3</label>
+                      <label className="text-dark">Address 3</label>
                     </div>
                     <div className="col-8">
                       <input
@@ -403,7 +436,7 @@ const CreateSVATInvoice = () => {
                 <div className="form-group mt-1">
                   <div className="row">
                     <div className="col-4">
-                      <label className="text-secondary">Contact No</label>
+                      <label className="text-dark">Contact No</label>
                     </div>
                     <div className="col-8">
                       <input
@@ -422,7 +455,7 @@ const CreateSVATInvoice = () => {
                 <div className="form-group mt-1">
                   <div className="row">
                     <div className="col-4">
-                      <label className="text-secondary">Reference Number</label>
+                      <label className="text-dark">Reference Number</label>
                     </div>
                     <div className="col-8">
                       <input
@@ -437,7 +470,7 @@ const CreateSVATInvoice = () => {
                 <div className="form-group mt-1">
                   <div className="row">
                     <div className="col-4">
-                      <label className="text-secondary">Accountant</label>
+                      <label className="text-dark">Accountant</label>
                     </div>
                     <div className="col-8">
                       <input
@@ -452,7 +485,7 @@ const CreateSVATInvoice = () => {
                 <div className="form-group mt-1">
                   <div className="row">
                     <div className="col-4">
-                      <label className="text-secondary">Document No</label>
+                      <label className="text-dark">Document No</label>
                     </div>
                     <div className="col-8">
                       <input
@@ -467,7 +500,7 @@ const CreateSVATInvoice = () => {
                 <div className="form-group mt-1">
                   <div className="row">
                     <div className="col-4">
-                      <label className="text-secondary">HAWB No</label>
+                      <label className="text-dark">HAWB No</label>
                     </div>
                     <div className="col-8">
                       <input
@@ -482,7 +515,7 @@ const CreateSVATInvoice = () => {
                 <div className="form-group mt-1">
                   <div className="row">
                     <div className="col-4">
-                      <label className="text-secondary">Date</label>
+                      <label className="text-dark">Date</label>
                     </div>
                     <div className="col-8">
                       <input
@@ -498,7 +531,7 @@ const CreateSVATInvoice = () => {
                 <div className="form-group mt-1">
                   <div className="row">
                     <div className="col-4">
-                      <label className="text-secondary">Payment Date</label>
+                      <label className="text-dark">Payment Due Date</label>
                     </div>
                     <div className="col-8">
                       <input
@@ -521,7 +554,7 @@ const CreateSVATInvoice = () => {
                 <div className="form-group mt-1">
                   <div className="row">
                     <div className="col-4">
-                      <label className="text-secondary">Origin</label>
+                      <label className="text-dark">Origin</label>
                     </div>
                     <div className="col-8">
                       <input
@@ -536,7 +569,7 @@ const CreateSVATInvoice = () => {
                 <div className="form-group mt-1">
                   <div className="row">
                     <div className="col-4">
-                      <label className="text-secondary">Destination</label>
+                      <label className="text-dark">Destination</label>
                     </div>
                     <div className="col-8">
                       <input
@@ -553,7 +586,7 @@ const CreateSVATInvoice = () => {
                 <div className="form-group mt-1">
                   <div className="row">
                     <div className="col-4">
-                      <label className="text-secondary">Peices</label>
+                      <label className="text-dark">Peices</label>
                     </div>
                     <div className="col-8">
                       <input
@@ -568,7 +601,7 @@ const CreateSVATInvoice = () => {
                 <div className="form-group mt-1">
                   <div className="row">
                     <div className="col-4">
-                      <label className="text-secondary">Weight</label>
+                      <label className="text-dark">Weight</label>
                     </div>
                     <div className="col-8">
                       <input
@@ -585,7 +618,7 @@ const CreateSVATInvoice = () => {
                 <div className="form-group mt-1">
                   <div className="row">
                     <div className="col-4">
-                      <label className="text-secondary">Content</label>
+                      <label className="text-dark">Content</label>
                     </div>
                     <div className="col-8">
                       <input
@@ -600,7 +633,7 @@ const CreateSVATInvoice = () => {
                 <div className="form-group mt-1">
                   <div className="row">
                     <div className="col-4">
-                      <label className="text-secondary">Assesed Value</label>
+                      <label className="text-dark">Assesed Value</label>
                     </div>
                     <div className="col-8">
                       <input
@@ -617,7 +650,7 @@ const CreateSVATInvoice = () => {
                 <div className="form-group mt-1">
                   <div className="row">
                     <div className="col-4">
-                      <label className="text-secondary">Arrival Date</label>
+                      <label className="text-dark">Arrival Date</label>
                     </div>
                     <div className="col-8">
                       <input
@@ -633,7 +666,7 @@ const CreateSVATInvoice = () => {
                 <div className="form-group mt-1">
                   <div className="row">
                     <div className="col-4">
-                      <label className="text-secondary">Cusdec No</label>
+                      <label className="text-dark">Cusdec No</label>
                     </div>
                     <div className="col-8">
                       <input
@@ -654,6 +687,7 @@ const CreateSVATInvoice = () => {
                   placeholder="Search Items..."
                   style={{ position: "relative!important" }}
                   value={searchTerm}
+                  ref={inputRef}
                   onChange={(e) => setSearchTerm(e.target.value)}
                   onFocus={() => searchTerm && setIsDropdownVisible(true)}
                   onKeyDown={handleKeyDown}
@@ -671,7 +705,7 @@ const CreateSVATInvoice = () => {
                         }`}
                         onClick={() => handleSelectItem(item)}
                       >
-                        {item.ItemCode} - {item.description}
+                        {item.ItemCode} - {item.ItemDesc}
                       </li>
                     ))}
                   </ul>
@@ -764,21 +798,8 @@ const CreateSVATInvoice = () => {
                     </tbody>
                     <tfoot>
                       <tr>
-                        <th className="p-1 text-end" colSpan="7">
-                          Grand Total
-                        </th>
-                        <th className="p-1">
-                          <input
-                            type="number"
-                            className="form-control form-control-sm"
-                            value={calculateGrandTotal()}
-                            readOnly
-                          />
-                        </th>
-                      </tr>
-                      <tr>
-                        <th className="p-1 text-end" colSpan="7">
-                          Suspended SVAT Charges
+                        <th className="p-1 text-end" colSpan="5">
+                          Suspended VAT Charges
                         </th>
                         <th className="p-1">
                           <input
@@ -788,12 +809,28 @@ const CreateSVATInvoice = () => {
                             value={calculateSuspendedSVATTotal()}
                           />
                         </th>
+                        <th className="p-1 text-end">Grand Total</th>
+                        <th className="p-1">
+                          <input
+                            type="number"
+                            className="form-control form-control-sm"
+                            value={calculateGrandTotal()}
+                            readOnly
+                          />
+                        </th>
                       </tr>
                     </tfoot>
                   </table>
                 </div>
               </div>
               <div className="col-12 d-flex gap-3 justify-content-end my-2">
+                <button
+                  type="button"
+                  onClick={CancelSubmit}
+                  className="btn btn-sm btn-theme-outline"
+                >
+                  Cancel
+                </button>
                 <button type="submit" className="btn btn-sm btn-theme">
                   Submit
                 </button>

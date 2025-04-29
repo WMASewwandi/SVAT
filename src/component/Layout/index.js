@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Logo from "../../assets/images/logo.png";
 
-
 const Layout = ({ children }) => {
   const [currentDate, setCurrentDate] = useState();
   const [activeLink, setActiveLink] = useState(
@@ -14,6 +13,7 @@ const Layout = ({ children }) => {
     localStorage.removeItem("user");
     window.location.href = "/dhl-svat/";
   };
+
   function updateTime() {
     const today = new Date();
     const formattedDate = new Intl.DateTimeFormat("en-US", {
@@ -23,35 +23,17 @@ const Layout = ({ children }) => {
       hour: "2-digit",
       minute: "2-digit",
     }).format(today);
-
     setCurrentDate(formattedDate);
   }
-  
 
-  const handleLinkClick = (linkName, parentMenu) => {
+  const handleLinkClick = (linkName) => {
     setActiveLink(linkName);
     localStorage.setItem("activeLink", linkName);
-    if (parentMenu) {
-      localStorage.setItem("activeParentMenu", parentMenu);
-    }
   };
 
   useEffect(() => {
-    const storedActiveLink = localStorage.getItem("activeLink");
-    const storedActiveParentMenu = localStorage.getItem("activeParentMenu");
-
-    if (storedActiveLink) {
-      setActiveLink(storedActiveLink);
-    }
-
-    if (storedActiveParentMenu) {
-      const parentMenu = document.getElementById(storedActiveParentMenu);
-      if (parentMenu) {
-        parentMenu.classList.add("show");
-      }
-    }
     updateTime();
-  setInterval(updateTime, 60000);
+    setInterval(updateTime, 60000);
   }, []);
 
   if (!user) {
@@ -61,141 +43,11 @@ const Layout = ({ children }) => {
 
   return (
     <div>
-      <div id="sidebar">
-        <a className="navbar-brand" href="#">
-          <img src={Logo} width="200" alt="Logo" />
-        </a>
-        <ul>
-          <li>
-            <a
-              className={activeLink === "Dashboard" ? "active" : ""}
-              href="/dhl-svat/dashboard"
-              onClick={() => handleLinkClick("Dashboard")}
-            >
-              Dashboard
-            </a>
-          </li>
-          <li>
-            <a
-              href="#masterMenu"
-              data-bs-toggle="collapse"
-              aria-expanded="false"
-              className={`dropdown-toggle d-flex align-items-center justify-content-between`}
-              onClick={() => handleLinkClick("Master", "masterMenu")}
-            >
-              Master
-            </a>
-            <ul className="collapse list-unstyled" id="masterMenu">
-              <li>
-                <a
-                  className={activeLink === "Item Master" ? "active" : ""}
-                  href="/dhl-svat/master/items"
-                  onClick={() => handleLinkClick("Item Master", "masterMenu")}
-                >
-                  Item Master
-                </a>
-              </li>
-              <li>
-                <a
-                  className={activeLink === "Customer Master" ? "active" : ""}
-                  href="/dhl-svat/master/customers"
-                  onClick={() =>
-                    handleLinkClick("Customer Master", "masterMenu")
-                  }
-                >
-                  Customer Master
-                </a>
-              </li>
-            </ul>
-          </li>
-          <li>
-            <a
-              className={activeLink === "Invoice" ? "active" : ""}
-              href="/dhl-svat/invoice"
-              onClick={() => handleLinkClick("Invoice")}
-            >
-              SVAT Invoice
-            </a>
-          </li>
-          <li>
-            <a
-              href="#reportsMenu"
-              data-bs-toggle="collapse"
-              aria-expanded="false"
-              className={`dropdown-toggle d-flex align-items-center justify-content-between`}
-              onClick={() => handleLinkClick("Reports", "reportsMenu")}
-            >
-              Reports
-            </a>
-            <ul className="collapse list-unstyled" id="reportsMenu">
-              <li>
-                <a
-                  className={activeLink === "Customers Report" ? "active" : ""}
-                  href="/dhl-svat/report/customer"
-                  onClick={() =>
-                    handleLinkClick("Customers Report", "reportsMenu")
-                  }
-                >
-                  Customers
-                </a>
-              </li>
-              <li>
-                <a
-                  className={activeLink === "Bulk Invoice" ? "active" : ""}
-                  href="/dhl-svat/report/bulk-invoice"
-                  onClick={() => handleLinkClick("Bulk Invoice", "reportsMenu")}
-                >
-                  Bulk Invoice Print
-                </a>
-              </li>
-            </ul>
-          </li>
-          <li>
-            <a
-              href="#authenticationMenu"
-              data-bs-toggle="collapse"
-              aria-expanded="false"
-              className={`dropdown-toggle d-flex align-items-center justify-content-between`}
-              onClick={() =>
-                handleLinkClick("Authentication", "authenticationMenu")
-              }
-            >
-              Authentication
-            </a>
-            <ul className="collapse list-unstyled" id="authenticationMenu">
-              <li>
-                <a
-                  className={activeLink === "Users" ? "active" : ""}
-                  href="/dhl-svat/authentication/users"
-                  onClick={() => handleLinkClick("Users", "authenticationMenu")}
-                >
-                  Users
-                </a>
-              </li>
-              <li>
-                <a
-                  className={activeLink === "Roles" ? "active" : ""}
-                  href="/dhl-svat/authentication/roles"
-                  onClick={() => handleLinkClick("Roles", "authenticationMenu")}
-                >
-                  Roles
-                </a>
-              </li>
-              <li>
-                <a
-                  className={activeLink === "Settings" ? "active" : ""}
-                  href="/dhl-svat/authentication/settings"
-                  onClick={() => handleLinkClick("Settings", "authenticationMenu")}
-                >
-                  Settings
-                </a>
-              </li>
-            </ul>
-          </li>
-        </ul>
-      </div>
-      <nav className="navbar fixed-top navbar-expand-lg" id="navbar">
+      <nav className="navbar fixed-top navbar-expand-lg bg-warning">
         <div className="container-fluid">
+          <a className="navbar-brand" href="#">
+            <img src={Logo} width="150" alt="Logo" />
+          </a>
           <button
             className="navbar-toggler"
             type="button"
@@ -207,20 +59,68 @@ const Layout = ({ children }) => {
           >
             <span className="navbar-toggler-icon"></span>
           </button>
-          <h6 className="text-white">
-            <span className="text-warning">Welcome, </span>
-            {userObject.Name}
-          </h6>
-
           <div className="collapse navbar-collapse" id="navbarNav">
+            <ul className="navbar-nav me-auto">
+              <li className="nav-item">
+                <a
+                  className={`nav-link ${activeLink === "Dashboard" ? "active" : ""}`}
+                  href="/dhl-svat/dashboard"
+                  onClick={() => handleLinkClick("Dashboard")}
+                >
+                  Dashboard
+                </a>
+              </li>
+              <li className="nav-item dropdown">
+                <a className="nav-link dropdown-toggle" href="#" id="masterDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  Master
+                </a>
+                <ul className="dropdown-menu" aria-labelledby="masterDropdown">
+                  <li><a className={activeLink === "Item Master" ? "dropdown-item active" : "dropdown-item"} href="/dhl-svat/master/items" onClick={() => handleLinkClick("Item Master")}>Item Master</a></li>
+                  <li><a className={activeLink === "Customer Master" ? "dropdown-item active" : "dropdown-item"} href="/dhl-svat/master/customers" onClick={() => handleLinkClick("Customer Master")}>Customer Master</a></li>
+                </ul>
+              </li>
+              <li className="nav-item dropdown">                
+                <a className="nav-link dropdown-toggle" href="#" id="masterDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  SVAT
+                </a>
+                <ul className="dropdown-menu" aria-labelledby="masterDropdown">
+                  <li><a className={activeLink === "Create" ? "dropdown-item active" : "dropdown-item"} href="/dhl-svat/invoice/create" onClick={() => handleLinkClick("Create")}>Create</a></li>
+                  <li><a className={activeLink === "View" ? "dropdown-item active" : "dropdown-item"} href="/dhl-svat/invoice" onClick={() => handleLinkClick("View")}>View</a></li>
+                </ul>
+              </li>
+              <li className="nav-item dropdown">
+                <a className="nav-link dropdown-toggle" href="#" id="reportsDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  Reports
+                </a>
+                <ul className="dropdown-menu" aria-labelledby="reportsDropdown">
+                  <li><a className={activeLink === "Customers Report" ? "dropdown-item active" : "dropdown-item"} href="/dhl-svat/report/customer" onClick={() => handleLinkClick("Customers Report")}>
+                    Customers Report</a></li>
+                  <li><a className={activeLink === "Bulk Invoice" ? "dropdown-item active" : "dropdown-item"} href="/dhl-svat/report/bulk-invoice" onClick={() => handleLinkClick("Bulk Invoice")}>
+                    Bulk Invoice Print</a></li>
+                </ul>
+              </li>
+              <li className="nav-item dropdown">
+                <a className="nav-link dropdown-toggle" href="#" id="authDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  Authentication
+                </a>
+                <ul className="dropdown-menu" aria-labelledby="authDropdown">
+                  <li><a className={activeLink === "Users" ? "dropdown-item active" : "dropdown-item"} href="/dhl-svat/authentication/users" onClick={() => handleLinkClick("Users")}>
+                    Users</a></li>
+                  <li><a className={activeLink === "Roles" ? "dropdown-item active" : "dropdown-item"} href="/dhl-svat/authentication/roles" onClick={() => handleLinkClick("Roles")}>
+                    Roles</a></li>
+                  {/* <li><a className={activeLink === "Settings" ? "dropdown-item active" : "dropdown-item"} href="/dhl-svat/authentication/settings" onClick={() => handleLinkClick("Settings")}>
+                    Settings</a></li> */}
+                </ul>
+              </li>
+            </ul>
             <ul className="navbar-nav ms-auto">
               <li className="nav-item">
-                <a className="nav-link text-white" href="#">
+                <a className="nav-link text-dark" href="#">
                   {currentDate}
                 </a>
               </li>
               <li className="nav-item">
-                <a className="nav-link" onClick={handleLogout} href="#">
+                <a className="nav-link text-dark" href="#" onClick={handleLogout}>
                   Log Out
                 </a>
               </li>
@@ -228,7 +128,7 @@ const Layout = ({ children }) => {
           </div>
         </div>
       </nav>
-      <div className="content">
+      <div className="content mt-5 pt-4">
         <div className="container">{children}</div>
       </div>
     </div>

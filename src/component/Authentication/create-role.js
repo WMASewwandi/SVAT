@@ -54,7 +54,7 @@ const CreateRole = ({ onGroupAdded }) => {
           <div className="form-group mt-1">
             <div className="row">
               <div className="col-12">
-                <label className="text-secondary">Group Name</label>
+                <label className="text-dark">Group Name</label>
               </div>
               <div className="col-12">
                 <input
@@ -71,7 +71,7 @@ const CreateRole = ({ onGroupAdded }) => {
           <div className="form-group mt-1">
             <div className="row">
               <div className="col-12">
-                <label className="text-secondary">Description</label>
+                <label className="text-dark">Description</label>
               </div>
               <div className="col-12">
                 <input

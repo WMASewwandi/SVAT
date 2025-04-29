@@ -6,7 +6,7 @@ const EditItem = () => {
           <div className="form-group mt-1">
             <div className="row">
               <div className="col-4">
-                <label className="text-secondary">Item Code</label>
+                <label className="text-dark">Item Code</label>
               </div>
               <div className="col-8">
                 <input type="text" className="form-control form-control-sm" />
@@ -16,7 +16,7 @@ const EditItem = () => {
           <div className="form-group mt-1">
             <div className="row">
               <div className="col-4">
-                <label className="text-secondary">Item Description</label>
+                <label className="text-dark">Item Description</label>
               </div>
               <div className="col-8">
                 <input type="text" className="form-control form-control-sm" />
@@ -26,7 +26,7 @@ const EditItem = () => {
           <div className="form-group mt-1">
             <div className="row">
               <div className="col-4">
-                <label className="text-secondary">Sap Account Code</label>
+                <label className="text-dark">Sap Account Code</label>
               </div>
               <div className="col-8">
                 <input type="text" className="form-control form-control-sm" />
@@ -36,7 +36,7 @@ const EditItem = () => {
           <div className="form-group mt-1">
             <div className="row">
               <div className="col-4">
-                <label className="text-secondary">Sap GL Code</label>
+                <label className="text-dark">Sap GL Code</label>
               </div>
               <div className="col-8">
                 <input type="text" className="form-control form-control-sm" />
@@ -46,7 +46,7 @@ const EditItem = () => {
           <div className="form-group mt-1">
             <div className="row">
               <div className="col-4">
-                <label className="text-secondary">Amount</label>
+                <label className="text-dark">Amount</label>
               </div>
               <div className="col-8">
                 <input type="text" className="form-control form-control-sm" />
@@ -56,7 +56,7 @@ const EditItem = () => {
           <div className="form-group mt-1">
             <div className="row">
               <div className="col-4">
-                <label className="text-secondary">Tax Option</label>
+                <label className="text-dark">Tax Option</label>
               </div>
               <div className="col-8 d-flex">
                 <div className="form-check form-check-inline">
@@ -89,7 +89,7 @@ const EditItem = () => {
           <div className="form-group mt-1">
             <div className="row">
               <div className="col-4">
-                <label className="text-secondary">Tax Rate</label>
+                <label className="text-dark">Tax Rate</label>
               </div>
               <div className="col-8">
                 <div className="input-group input-group-sm">

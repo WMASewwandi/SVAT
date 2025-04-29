@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Base_URL from "../../Base/api";
 import { toast } from "react-toastify";
 
@@ -17,9 +17,27 @@ const CreateItem = ({ onItemAdded }) => {
     TaxRate: "",
     IsAwbRequired: 0,
     AllowEdit: 0,
-    Inactive: 1,
+    Inactive: 0,
     IsInvoiceItem: 1,
   });
+
+  const firstInputRef = useRef(null);
+
+  useEffect(() => {
+    const modal = document.getElementById("EditItem");
+
+    const handleModalShow = () => {
+      if (firstInputRef.current) {
+        firstInputRef.current.focus();
+      }
+    };
+
+    modal.addEventListener("shown.bs.modal", handleModalShow);
+
+    return () => {
+      modal.removeEventListener("shown.bs.modal", handleModalShow);
+    };
+  }, []);
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -74,11 +92,12 @@ const CreateItem = ({ onItemAdded }) => {
           <div className="form-group mt-1">
             <div className="row">
               <div className="col-4">
-                <label className="text-secondary">Item Code</label>
+                <label className="text-dark">Item Code</label>
               </div>
               <div className="col-8">
                 <input
-                required
+                  ref={firstInputRef}
+                  required
                   type="text"
                   name="ItemCode"
                   className="form-control form-control-sm"
@@ -91,11 +110,11 @@ const CreateItem = ({ onItemAdded }) => {
           <div className="form-group mt-1">
             <div className="row">
               <div className="col-4">
-                <label className="text-secondary">Item Description</label>
+                <label className="text-dark">Item Description</label>
               </div>
               <div className="col-8">
                 <input
-                required
+                  required
                   type="text"
                   className="form-control form-control-sm"
                   name="ItemDesc"
@@ -108,7 +127,7 @@ const CreateItem = ({ onItemAdded }) => {
           <div className="form-group mt-1">
             <div className="row">
               <div className="col-4">
-                <label className="text-secondary">Sap Account Code</label>
+                <label className="text-dark">Sap Account Code</label>
               </div>
               <div className="col-8">
                 <input
@@ -125,7 +144,7 @@ const CreateItem = ({ onItemAdded }) => {
           <div className="form-group mt-1">
             <div className="row">
               <div className="col-4">
-                <label className="text-secondary">Sap GL Code</label>
+                <label className="text-dark">Sap GL Code</label>
               </div>
               <div className="col-8">
                 <input
@@ -142,7 +161,7 @@ const CreateItem = ({ onItemAdded }) => {
           <div className="form-group mt-1">
             <div className="row">
               <div className="col-4">
-                <label className="text-secondary">Amount</label>
+                <label className="text-dark">Amount</label>
               </div>
               <div className="col-8">
                 <input
@@ -159,7 +178,7 @@ const CreateItem = ({ onItemAdded }) => {
           <div className="form-group mt-1">
             <div className="row">
               <div className="col-4">
-                <label className="text-secondary">Tax Option</label>
+                <label className="text-dark">Tax Option</label>
               </div>
               <div className="col-8 d-flex">
                 <div className="form-check form-check-inline">
@@ -197,7 +216,7 @@ const CreateItem = ({ onItemAdded }) => {
           <div className="form-group mt-1">
             <div className="row">
               <div className="col-4">
-                <label className="text-secondary">Tax Rate</label>
+                <label className="text-dark">Tax Rate</label>
               </div>
               <div className="col-8">
                 <div className="input-group input-group-sm">
@@ -240,13 +259,13 @@ const CreateItem = ({ onItemAdded }) => {
                     onChange={handleChange}
                   />
                   <label className="form-check-label" htmlFor="inlineCheckbox2">
-                    Active
+                    Inactive
                   </label>
                 </div>
               </div>
             </div>
           </div>
-          <div className="form-group d-flex justify-content-between gap-3 mt-3">
+          <div className="form-group d-flex justify-content-end gap-3 mt-3">
             <button
               type="button"
               id="close-modal-item"

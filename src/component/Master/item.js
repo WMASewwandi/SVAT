@@ -88,18 +88,6 @@ const ItemMaster = () => {
                     <td>{item.Amount ? item.Amount : "-"}</td>
                     <td>Tax Enabled</td>
                     <td>{item.TaxRate ?? "-"}</td>
-                    {/* <td className="d-flex gap-2">
-                      <button
-                        data-bs-toggle="modal"
-                        data-bs-target="#EditItem"
-                        className="btn btn-sm"
-                      >
-                        <i className="fa text-primary fa-edit"></i>
-                      </button>
-                      <button className="btn btn-sm">
-                        <i className="fa text-danger fa-trash"></i>
-                      </button>
-                    </td> */}
                   </tr>
                 ))}
               </tbody>

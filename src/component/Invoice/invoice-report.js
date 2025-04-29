@@ -19,6 +19,8 @@ const style = {
   left: "50%",
   transform: "translate(-50%, -50%)",
   width: { lg: 900, xs: 300 },
+  maxHeight: '90vh',
+  overflowY: 'auto',
   bgcolor: "background.paper",
   boxShadow: 24,
   p: 4,

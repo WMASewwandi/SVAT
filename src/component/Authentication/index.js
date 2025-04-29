@@ -271,10 +271,10 @@ const Users = () => {
                     <td>
                       <span
                         className={`badge ${
-                          user.Inactive ? "bg-primary" : "bg-secondary"
+                          user.Inactive ? "bg-secondary" : "bg-primary"
                         }`}
                       >
-                        {user.Inactive ? "true" : "false"}
+                        {user.Inactive ? "false" : "true"}
                       </span>
                     </td>
                     <td>
@@ -358,7 +358,7 @@ const Users = () => {
                     <div className="form-group mt-1">
                       <div className="row">
                         <div className="col-12">
-                          <label className="text-secondary">Name</label>
+                          <label className="text-dark">Name</label>
                         </div>
                         <div className="col-12">
                           <input
@@ -375,7 +375,7 @@ const Users = () => {
                     <div className="form-group mt-1">
                       <div className="row">
                         <div className="col-12">
-                          <label className="text-secondary">Username</label>
+                          <label className="text-dark">Username</label>
                         </div>
                         <div className="col-12">
                           <input
@@ -400,7 +400,7 @@ const Users = () => {
                               checked={selectedUser.Inactive}
                               onChange={handleChange}
                             />
-                            <label className="form-check-label">Active</label>
+                            <label className="form-check-label">Inactive</label>
                           </div>
                         </div>
                       </div>

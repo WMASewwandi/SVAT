@@ -196,7 +196,7 @@ const Settings = () => {
                     <div className="form-group mt-1">
                       <div className="row">
                         <div className="col-12">
-                          <label className="text-secondary">Description</label>
+                          <label className="text-dark">Description</label>
                         </div>
                         <div className="col-12">
                           <input
@@ -213,7 +213,7 @@ const Settings = () => {
                     <div className="form-group mt-1">
                       <div className="row">
                         <div className="col-12">
-                          <label className="text-secondary">Value</label>
+                          <label className="text-dark">Value</label>
                         </div>
                         <div className="col-12">
                           <input
