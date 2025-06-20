@@ -13,6 +13,7 @@ import ReportBulkInvoice from "./component/Reports/bulk-invoice";
 import Users from "./component/Authentication";
 import UserRole from "./component/Authentication/user-role";
 import Settings from "./component/Authentication/settings";
+import Home from "./component/Home";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
       <div>
         <Routes>
           <Route path="/dhl-svat/" element={<Login />} />
+          <Route path="/dhl-svat/home" element={<Home />} />
           <Route path="/dhl-svat/dashboard" element={<Dashboard />} />
           <Route path="/dhl-svat/master/items" element={<ItemMaster />} />
           <Route path="/dhl-svat/master/customers" element={<CustomerMaster />} />

@@ -16,7 +16,7 @@ const CreateCustomer = ({ onCustomerAdded }) => {
     CustomerConNo: "",
     CustomerFaxNo: "",
     AllowEditDetails: 0,
-    Inactive: 0,
+    Inactive: 1,
     CustomerType: 2,
   });
 

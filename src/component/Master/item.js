@@ -7,7 +7,8 @@ import EditItem from "./edit-item";
 
 const ItemMaster = () => {
   const [items, setItems] = useState([]);
-  
+  const [selectedItem, setSelectedItem] = useState({});
+
   const fetchItems = async () => {
     try {
       const response = await fetch(`${Base_URL}/api/item`, {
@@ -29,7 +30,7 @@ const ItemMaster = () => {
   };
 
   //get all
-  useEffect(() => {    
+  useEffect(() => {
     fetchItems();
   }, []);
 
@@ -47,9 +48,9 @@ const ItemMaster = () => {
     }
   }, [items]);
 
-    return (
+  return (
     <Layout>
-      <ToastContainer/>
+      <ToastContainer />
       <div className="row">
         <div className="col-12 d-flex justify-content-between">
           <h4 className="text-uppercase text-red">Items</h4>
@@ -74,7 +75,7 @@ const ItemMaster = () => {
                   <th>Amount</th>
                   <th>Tax Option</th>
                   <th>Tax Rate (%)</th>
-                  {/* <th>Action</th> */}
+                  <th>Action</th>
                 </tr>
               </thead>
               <tbody>
@@ -86,8 +87,19 @@ const ItemMaster = () => {
                     <td>{item.SapAccCode ? item.SapAccCode : "-"}</td>
                     <td>{item.SapGlCode ? item.SapGlCode : "-"}</td>
                     <td>{item.Amount ? item.Amount : "-"}</td>
-                    <td>Tax Enabled</td>
+                    <td>{item.TaxOption}</td>
                     <td>{item.TaxRate ?? "-"}</td>
+                    <td>
+                      <button
+                        data-bs-toggle="modal"
+                        data-bs-target="#EditItem"
+                        className="btn btn-sm"
+                        onClick={() => setSelectedItem(item)}
+                      >
+                        <i className="fa text-primary fa-edit"></i>
+                      </button>
+
+                    </td>
                   </tr>
                 ))}
               </tbody>
@@ -117,7 +129,7 @@ const ItemMaster = () => {
               ></button>
             </div>
             <div className="modal-body">
-              <CreateItem onItemAdded={fetchItems}/>
+              <CreateItem onItemAdded={fetchItems} />
             </div>
           </div>
         </div>
@@ -144,7 +156,7 @@ const ItemMaster = () => {
               ></button>
             </div>
             <div className="modal-body">
-              <EditItem/>
+              <EditItem fetchItems={fetchItems} item={selectedItem} />
             </div>
           </div>
         </div>

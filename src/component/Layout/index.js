@@ -1,13 +1,100 @@
 import React, { useState, useEffect } from "react";
 import Logo from "../../assets/images/logo.png";
+import Base_URL from "../../Base/api";
+import CreateReport from "../Reports/InvoiceReport";
 
 const Layout = ({ children }) => {
+  const [selectedReport, setSelectedReport] = useState();
+  const [menu, setMenu] = useState([
+    {
+      name: "Dashboard",
+      pagePath: "Dashboard",
+      path: "/dhl-svat/dashboard",
+      isDisabled: false,
+    },
+    {
+      name: "Master",
+      isDropdown: true,
+      isDisabled: false,
+      children: [
+        { name: "Item Master", path: "/dhl-svat/master/items", pagePath: "ItemMaster", isDisabled: false },
+        { name: "Customer Master", path: "/dhl-svat/master/customers", pagePath: "CustomerMaster", isDisabled: false },
+      ],
+    },
+    {
+      name: "SVAT",
+      isDropdown: true,
+      isDisabled: false,
+      children: [
+        { name: "Create", path: "/dhl-svat/invoice/create", pagePath: "InvoiceCreate", isDisabled: false },
+        { name: "View", path: "/dhl-svat/invoice", pagePath: "Invoice", isDisabled: false },
+      ],
+    },
+    {
+      name: "Reports",
+      isDropdown: true,
+      isDisabled: false,
+      children: [
+        { name: "SVAT Invoice Summary", modalTarget: "#ViewReport", pagePath: "InvoiceSummeryReport", reportName: "InvoiceSummery", isDisabled: false },
+        { name: "SVAT Invoice Details", modalTarget: "#ViewReport", pagePath: "InvoiceDetailReport", reportName: "InvoiceDetail", isDisabled: false },
+        { name: "SVAT Invoice Cancellation", modalTarget: "#ViewReport", pagePath: "InvoiceCancellationReport", reportName: "InvoiceCancellation", isDisabled: false },
+      ],
+    },
+    {
+      name: "Authentication",
+      isDropdown: true,
+      isDisabled: false,
+      children: [
+        { name: "Users", path: "/dhl-svat/authentication/users", pagePath: "User", isDisabled: false },
+        { name: "User Groups", path: "/dhl-svat/authentication/roles", pagePath: "UserGroup", isDisabled: false },
+      ],
+    },
+  ]);
   const [currentDate, setCurrentDate] = useState();
   const [activeLink, setActiveLink] = useState(
     localStorage.getItem("activeLink") || "Dashboard"
   );
   const user = localStorage.getItem("user");
   const userObject = JSON.parse(user);
+
+  const fetchRights = async () => {
+    try {
+      const response = await fetch(`${Base_URL}/api/AccessRight?TypeCode=${userObject.UserType}`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error("fetching failed");
+      }
+
+      const data = await response.json();
+
+      const updatedMenu = menu.map(item => {
+        if (item.isDropdown && Array.isArray(item.children)) {
+          const updatedChildren = item.children.map(child => ({
+            ...child,
+            isDisabled: !data.includes(child.pagePath),
+          }));
+          return { ...item, children: updatedChildren };
+        } else if (item.pagePath) {
+          return { ...item, isDisabled: !data.includes(item.pagePath) };
+        } else {
+          return { ...item, isDisabled: !data.includes(item.name) }; // fallback
+        }
+      });
+
+      setMenu(updatedMenu);
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchRights();
+  }, []);
 
   const handleLogout = () => {
     localStorage.removeItem("user");
@@ -41,6 +128,8 @@ const Layout = ({ children }) => {
     return;
   }
 
+
+
   return (
     <div>
       <nav className="navbar fixed-top navbar-expand-lg bg-warning">
@@ -61,57 +150,55 @@ const Layout = ({ children }) => {
           </button>
           <div className="collapse navbar-collapse" id="navbarNav">
             <ul className="navbar-nav me-auto">
-              <li className="nav-item">
-                <a
-                  className={`nav-link ${activeLink === "Dashboard" ? "active" : ""}`}
-                  href="/dhl-svat/dashboard"
-                  onClick={() => handleLinkClick("Dashboard")}
-                >
-                  Dashboard
-                </a>
-              </li>
-              <li className="nav-item dropdown">
-                <a className="nav-link dropdown-toggle" href="#" id="masterDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  Master
-                </a>
-                <ul className="dropdown-menu" aria-labelledby="masterDropdown">
-                  <li><a className={activeLink === "Item Master" ? "dropdown-item active" : "dropdown-item"} href="/dhl-svat/master/items" onClick={() => handleLinkClick("Item Master")}>Item Master</a></li>
-                  <li><a className={activeLink === "Customer Master" ? "dropdown-item active" : "dropdown-item"} href="/dhl-svat/master/customers" onClick={() => handleLinkClick("Customer Master")}>Customer Master</a></li>
-                </ul>
-              </li>
-              <li className="nav-item dropdown">                
-                <a className="nav-link dropdown-toggle" href="#" id="masterDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  SVAT
-                </a>
-                <ul className="dropdown-menu" aria-labelledby="masterDropdown">
-                  <li><a className={activeLink === "Create" ? "dropdown-item active" : "dropdown-item"} href="/dhl-svat/invoice/create" onClick={() => handleLinkClick("Create")}>Create</a></li>
-                  <li><a className={activeLink === "View" ? "dropdown-item active" : "dropdown-item"} href="/dhl-svat/invoice" onClick={() => handleLinkClick("View")}>View</a></li>
-                </ul>
-              </li>
-              <li className="nav-item dropdown">
-                <a className="nav-link dropdown-toggle" href="#" id="reportsDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  Reports
-                </a>
-                <ul className="dropdown-menu" aria-labelledby="reportsDropdown">
-                  <li><a className={activeLink === "Customers Report" ? "dropdown-item active" : "dropdown-item"} href="/dhl-svat/report/customer" onClick={() => handleLinkClick("Customers Report")}>
-                    Customers Report</a></li>
-                  <li><a className={activeLink === "Bulk Invoice" ? "dropdown-item active" : "dropdown-item"} href="/dhl-svat/report/bulk-invoice" onClick={() => handleLinkClick("Bulk Invoice")}>
-                    Bulk Invoice Print</a></li>
-                </ul>
-              </li>
-              <li className="nav-item dropdown">
-                <a className="nav-link dropdown-toggle" href="#" id="authDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  Authentication
-                </a>
-                <ul className="dropdown-menu" aria-labelledby="authDropdown">
-                  <li><a className={activeLink === "Users" ? "dropdown-item active" : "dropdown-item"} href="/dhl-svat/authentication/users" onClick={() => handleLinkClick("Users")}>
-                    Users</a></li>
-                  <li><a className={activeLink === "Roles" ? "dropdown-item active" : "dropdown-item"} href="/dhl-svat/authentication/roles" onClick={() => handleLinkClick("Roles")}>
-                    Roles</a></li>
-                  {/* <li><a className={activeLink === "Settings" ? "dropdown-item active" : "dropdown-item"} href="/dhl-svat/authentication/settings" onClick={() => handleLinkClick("Settings")}>
-                    Settings</a></li> */}
-                </ul>
-              </li>
+              {menu.map((item, index) =>
+                item.isDropdown ? (
+                  <li key={index} className="nav-item dropdown">
+                    <a className="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                      {item.name}
+                    </a>
+                    <ul className="dropdown-menu">
+                      {item.children.map((child, cIndex) => (
+                        <li key={cIndex}>
+                          <a
+                            className={`dropdown-item ${activeLink === child.name ? "active" : ""} ${child.isDisabled ? "disabled text-muted" : ""}`}
+                            href="#"
+                            {...(child.modalTarget
+                              ? { "data-bs-toggle": "modal", "data-bs-target": child.modalTarget }
+                              : { href: child.isDisabled ? "#" : child.path })}
+                            onClick={(e) => {
+                              if (child.isDisabled) {
+                                e.preventDefault();
+                              } else {
+                                if (!child.modalTarget) {
+                                  handleLinkClick(child.name);
+                                } else {
+                                  setSelectedReport(child);
+                                }
+                              }
+                            }}
+                          >
+                            {child.name}
+                          </a>
+
+                        </li>
+                      ))}
+                    </ul>
+                  </li>
+                ) : (
+                  <li key={index} className="nav-item">
+                    <a
+                      className={`nav-link ${activeLink === item.name ? "active" : ""} ${item.isDisabled ? "disabled text-muted" : ""}`}
+                      href={item.isDisabled ? "#" : item.path}
+                      onClick={e => {
+                        if (!item.isDisabled) handleLinkClick(item.name);
+                        else e.preventDefault();
+                      }}
+                    >
+                      {item.name}
+                    </a>
+                  </li>
+                )
+              )}
             </ul>
             <ul className="navbar-nav ms-auto">
               <li className="nav-item">
@@ -130,6 +217,34 @@ const Layout = ({ children }) => {
       </nav>
       <div className="content mt-5 pt-4">
         <div className="container">{children}</div>
+      </div>
+
+
+      <div
+        className="modal fade"
+        id="ViewReport"
+        tabIndex="-1"
+        aria-labelledby="ViewReportLabel"
+        aria-hidden="true"
+      >
+        <div className="modal-dialog">
+          <div className="modal-content rounded-0">
+            <div className="modal-header">
+              <h1 className="modal-title fs-5" id="ViewReportLabel">
+                {selectedReport ? selectedReport.name : "Report"}
+              </h1>
+              <button
+                type="button"
+                className="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div className="modal-body">
+              <CreateReport report={selectedReport} user={userObject}/>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );

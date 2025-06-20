@@ -7,6 +7,7 @@ import EditCustomer from "./edit-customer";
 
 const CustomerMaster = () => {
   const [customers, setCustomers] = useState([]);
+  const [selectedItem, setSelectedItem] = useState({});
 
   const fetchCustomers = async () => {
     try {
@@ -79,7 +80,7 @@ const CustomerMaster = () => {
                   <th>Email</th>
                   <th>Fax</th>
                   <th>Contact No</th>
-                  {/* <th>Action</th> */}
+                  <th>Action</th>
                 </tr>
               </thead>
               <tbody>
@@ -95,18 +96,19 @@ const CustomerMaster = () => {
                     <td>{customer.CustomerEmail}</td>
                     <td>{customer.CustomerFaxNo}</td>
                     <td>{customer.CustomerConNo}</td>
-                    {/* <td className="d-flex gap-2">
+                    <td className="d-flex gap-2">
                       <button
                         data-bs-toggle="modal"
                         data-bs-target="#EditCustomer"
                         className="btn btn-sm"
+                        onClick={()=>setSelectedItem(customer)}
                       >
                         <i className="fa text-primary fa-edit"></i>
                       </button>
-                      <button className="btn btn-sm">
+                      {/* <button className="btn btn-sm">
                         <i className="fa text-danger fa-trash"></i>
-                      </button>
-                    </td> */}
+                      </button> */}
+                    </td>
                   </tr>
                 ))}
               </tbody>
@@ -163,7 +165,7 @@ const CustomerMaster = () => {
               ></button>
             </div>
             <div className="modal-body">
-              <EditCustomer/>
+              <EditCustomer fetchItems={fetchCustomers} customer={selectedItem}/>
             </div>
           </div>
         </div>

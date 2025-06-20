@@ -38,7 +38,7 @@ const Login = () => {
           localStorage.setItem("activeLink", "Dashboard");
           localStorage.setItem("activeParentMenu", "");
           setTimeout(() => {
-            window.location.href = '/dhl-svat/dashboard';
+            window.location.href = '/dhl-svat/home';
           }, 2000);
         }else{
           toast.error(data.Message);
@@ -118,7 +118,7 @@ const Login = () => {
                     ))}
                   </select>
                 </div>
-                <div className="remember-forgot">
+                {/* <div className="remember-forgot">
                   <label className="text-red">
                     <input
                       id="password-visibility"
@@ -130,14 +130,14 @@ const Login = () => {
                   <a className="text-red" href="#">
                     Forgot Password
                   </a>
-                </div>
+                </div> */}
                 <button type="submit" className="btn">
                   Login
                 </button>
                 <div className="register-link">
-                  <p className="text-red">
+                  {/* <p className="text-red">
                     Don't have an account? <a href="#">Register</a>
-                  </p>
+                  </p> */}
                 </div>
               </form>
             </div>

@@ -65,6 +65,7 @@ const SearchCustomer = ({ customers,onSelectCustomer }) => {
   };
 
   const handleSelect = () => {
+    // alert(selectedIndex);
     if (selectedIndex !== -1) {
       const customer = filteredCustomers[selectedIndex];
       onSelectCustomer(customer); 

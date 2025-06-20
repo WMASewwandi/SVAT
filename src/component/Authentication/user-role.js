@@ -58,11 +58,12 @@ const UserRole = () => {
   };
 
   const handleSubmit = async (e) => {
+    
     e.preventDefault();
     const postData = {
       TypeCode: selectedRole.TypeCode,
       TypeDesc: selectedRole.TypeDesc,
-      Inactive: selectedRole.Inactive,
+      Inactive: selectedRole.Inactive || 0,
     };
     try {
       const response = await fetch(`${Base_URL}/api/UserType`, {
@@ -161,6 +162,7 @@ const UserRole = () => {
                         data-bs-toggle="modal"
                         data-bs-target="#ScreenRights"
                         className="btn btn-sm"
+                        onClick={() => handleSetRole(role)}
                       >
                         <i className="fa text-primary fa-check"></i>
                       </button>
@@ -244,7 +246,7 @@ const UserRole = () => {
                         </div>
                         <div className="col-12">
                           <input
-                            required
+                            disabled
                             type="text"
                             name="TypeCode"
                             className="form-control form-control-sm"
@@ -282,7 +284,7 @@ const UserRole = () => {
                               checked={selectedRole.Inactive}
                               onChange={handleChange}
                             />
-                            <label className="form-check-label">Active</label>
+                            <label className="form-check-label">Inactive</label>
                           </div>
                         </div>
                       </div>
@@ -329,7 +331,7 @@ const UserRole = () => {
               ></button>
             </div>
             <div className="modal-body">
-              <UserRights />
+              <UserRights role={selectedRole} fetchItems={fetchRoles}/>
             </div>
           </div>
         </div>

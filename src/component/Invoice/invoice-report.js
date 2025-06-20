@@ -493,7 +493,7 @@ const InvoiceReport = ({ invoice }) => {
   return (
     <>
       <button className="btn btn-sm" type="button" onClick={handleOpen}>
-        <i className="fa text-primary fa-print"></i>
+        <i className="fa text-primary fa-print" style={{ fontSize: "1.2rem" }}></i>
       </button>
 
       <Modal

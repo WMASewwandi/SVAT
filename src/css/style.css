@@ -22,6 +22,19 @@ body.login {
   overflow-x: hidden;
 }
 
+.home-test {
+  background-image: url(../assets/images/bg.jpeg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  height: 100vh;
+  width: 100vw;
+  position: absolute;
+  top: 0;
+  left: 0;
+  overflow: hidden;
+}
+
 .dropdown-menu {
   background-color: var(--red);
 }
@@ -375,15 +388,17 @@ table tr th {
 }
 
 /* card 1 */
-.dashboard-cards .card1 .card-header{
+.dashboard-cards .card1 .card-header {
   background: var(--card1);
   color: var(--white);
 }
-.dashboard-cards .card1 .card-body{
+
+.dashboard-cards .card1 .card-body {
   background: var(--card1);
   color: var(--black);
 }
-.dashboard-cards .card1 .card-footer{
+
+.dashboard-cards .card1 .card-footer {
   border: 1px solid var(--card1);
   color: var(--card1);
   font-size: 12px;
@@ -391,29 +406,34 @@ table tr th {
 
 /* card 2 */
 
-.dashboard-cards .card2 .card-header{
+.dashboard-cards .card2 .card-header {
   background: var(--card2);
   color: var(--white);
 }
-.dashboard-cards .card2 .card-body{
+
+.dashboard-cards .card2 .card-body {
   background: var(--card2);
   color: var(--black);
 }
-.dashboard-cards .card2 .card-footer{
+
+.dashboard-cards .card2 .card-footer {
   border: 1px solid var(--card2);
   color: var(--card2);
   font-size: 12px;
 }
+
 /* card 3 */
-.dashboard-cards .card3 .card-header{
+.dashboard-cards .card3 .card-header {
   background: var(--card3);
   color: var(--white);
 }
-.dashboard-cards .card3 .card-body{
+
+.dashboard-cards .card3 .card-body {
   background: var(--card3);
   color: var(--black);
 }
-.dashboard-cards .card3 .card-footer{
+
+.dashboard-cards .card3 .card-footer {
   border: 1px solid var(--card3);
   color: var(--card3);
   font-size: 12px;
@@ -421,17 +441,18 @@ table tr th {
 
 /* card 4 */
 
-.dashboard-cards .card4 .card-header{
+.dashboard-cards .card4 .card-header {
   background: var(--card4);
   color: var(--white);
 }
-.dashboard-cards .card4 .card-body{
+
+.dashboard-cards .card4 .card-body {
   background: var(--card4);
   color: var(--black);
 }
-.dashboard-cards .card4 .card-footer{
+
+.dashboard-cards .card4 .card-footer {
   border: 1px solid var(--card4);
   color: var(--card4);
   font-size: 12px;
 }
-

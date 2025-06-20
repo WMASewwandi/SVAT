@@ -2,30 +2,36 @@ import React, { useEffect, useState } from "react";
 import Layout from "../Layout";
 import Base_URL from "../../Base/api";
 import InvoiceReport from "./invoice-report";
+import Report_URL from "../../Base/report";
+import DeleteConfirm from "./delete";
+import { ToastContainer } from "react-toastify";
 
 const Invoice = () => {
   const [invoices, setInvoices] = useState([]);
+  const user = localStorage.getItem("user");
+  const userObject = JSON.parse(user);
+  const firstName = userObject.Name.split(" ")[0];
+  const fetchInvoice = async () => {
+    try {
+      const response = await fetch(`${Base_URL}/api/svatInvoice`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
 
-  useEffect(() => {
-    const fetchInvoice = async () => {
-      try {
-        const response = await fetch(`${Base_URL}/api/svatInvoice`, {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        });
-
-        if (!response.ok) {
-          throw new Error("fetching failed");
-        }
-
-        const data = await response.json();
-        setInvoices(data.slice(0, 50));
-      } catch (error) {
-        console.error("Error:", error);
+      if (!response.ok) {
+        throw new Error("fetching failed");
       }
-    };
+
+      const data = await response.json();
+      setInvoices(data.slice(0, 50));
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
+  useEffect(() => {
+
 
     fetchInvoice();
   }, []);
@@ -43,9 +49,27 @@ const Invoice = () => {
     }
   }, [invoices]);
 
-  
+  function formatCurrency(value) {
+    if (value == null || isNaN(value)) return '0.00';
+    return parseFloat(value).toLocaleString('en-US', {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2
+    });
+  }
+  function formatDate(dateString) {
+    if (!dateString) return '';
+    const date = new Date(dateString);
+    return date.toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric'
+    });
+  }
+console.log(invoices);
+
   return (
     <Layout>
+      <ToastContainer />
       <div className="row">
         <div className="col-12 d-flex justify-content-between">
           <h4 className="text-uppercase text-red">SVAT Invoice</h4>
@@ -64,6 +88,7 @@ const Invoice = () => {
                 <tr>
                   <th>#</th>
                   <th>Customer</th>
+                  <th>SVAT ACC No</th>
                   <th>Reference No</th>
                   <th>Net Amount</th>
                   <th>Document No</th>
@@ -72,19 +97,24 @@ const Invoice = () => {
                 </tr>
               </thead>
               <tbody>
-              {invoices.map((invoice, index) => (
-                <tr key={index}>
-                  <td>{index+1}</td>
-                  <td>{invoice.CustomerName}</td>
-                  <td>{invoice.RefNo}</td>
-                  <td>{invoice.GrandTotal}</td>
-                  <td>{invoice.Document}</td>
-                  <td>{invoice.PaymentDate}</td>
-                  <td>
-                    <InvoiceReport invoice={invoice}/>
-                  </td>
-                </tr>
-              ))}
+                {invoices.map((invoice, index) => (
+                  <tr key={index}>
+                    <td>{index + 1}</td>
+                    <td>{invoice.CustomerName}</td>
+                    <td>{invoice.AccountNo}</td>
+                    <td>{invoice.RefNo}</td>
+                    <td>{formatCurrency(invoice.GrandTotal)}</td>
+                    <td>{invoice.Document}</td>
+                    <td>{formatDate(invoice.PaymentDate)}</td>
+                    <td style={{ display: "flex", gap: "10px" }}>
+                      {/* <a href={`${Report_URL}reportName=Invoice.rpt&documentNo=${invoice.InvoiceNo}&currentUser=${firstName}`} target="_blank">
+                      <i className="fa text-primary fa-print" style={{fontSize: '1.2rem'}}></i>
+                    </a> */}
+                      <InvoiceReport invoice={invoice} />
+                      <DeleteConfirm id={invoice.Id} user={userObject} fetch={fetchInvoice} />
+                    </td>
+                  </tr>
+                ))}
               </tbody>
             </table>
           </div>

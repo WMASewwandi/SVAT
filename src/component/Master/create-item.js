@@ -13,7 +13,7 @@ const CreateItem = ({ onItemAdded }) => {
     TaxCalculation: 1,
     SuspendedTaxCalculation: 0,
     Amount: 0,
-    TaxOption: "",
+    TaxOption: "Tax Enabled",
     TaxRate: "",
     IsAwbRequired: 0,
     AllowEdit: 0,
