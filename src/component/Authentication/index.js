@@ -11,7 +11,29 @@ const Users = () => {
   const [branches, setBranches] = useState([]);
   const [userBranches, setUserBranches] = useState([]);
   const [selectedBranches, setSelectedBranches] = useState([]);
-  
+
+  const [roles, setRoles] = useState([]);
+
+  const fetchRoles = async () => {
+    try {
+      const response = await fetch(`${Base_URL}/api/UserType`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error("fetching failed");
+      }
+
+      const data = await response.json();
+      setRoles(data);
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
+
 
   const fetchUsers = async () => {
     try {
@@ -76,6 +98,7 @@ const Users = () => {
   useEffect(() => {
     fetchUsers();
     fetchBranches();
+    fetchRoles();
   }, []);
 
   useEffect(() => {
@@ -101,22 +124,22 @@ const Users = () => {
       const updatedBranches = value
         ? [...prev, { branchCode, userId }]
         : prev.filter((item) => item.branchCode !== branchCode);
-  
+
       setUserBranches((prevUserBranches) => {
         const updatedUserBranches = value
           ? [...prevUserBranches, { BranchCode: branchCode, UserId: userId }]
           : prevUserBranches.filter(
-              (item) => item.BranchCode !== branchCode
-            );
-  
+            (item) => item.BranchCode !== branchCode
+          );
+
         return updatedUserBranches;
       });
-  
+
       return [...updatedBranches, ...userBranches];
     });
   };
-  
-    
+
+
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -127,7 +150,7 @@ const Users = () => {
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault(); 
+    e.preventDefault();
     const postData = {
       Name: selectedUser.Name,
       UserName: selectedUser.Username,
@@ -224,7 +247,7 @@ const Users = () => {
 
   return (
     <Layout>
-      <ToastContainer/>
+      <ToastContainer />
       <div className="row">
         <div className="col-12 d-flex justify-content-between">
           <h4 className="text-uppercase text-red m-0">Users</h4>
@@ -270,9 +293,8 @@ const Users = () => {
                     <td>{user.UserType}</td>
                     <td>
                       <span
-                        className={`badge ${
-                          user.Inactive ? "bg-secondary" : "bg-primary"
-                        }`}
+                        className={`badge ${user.Inactive ? "bg-secondary" : "bg-primary"
+                          }`}
                       >
                         {user.Inactive ? "false" : "true"}
                       </span>
@@ -386,6 +408,22 @@ const Users = () => {
                             value={selectedUser.Username}
                             onChange={handleChange}
                           />
+                        </div>
+                      </div>
+                    </div>
+                    <div className="form-group mt-1">
+                      <div className="row">
+                        <div className="col-12">
+                          <label className="text-dark">User Group</label>
+                        </div>
+                        <div className="col-12">
+                          <div className="col-12">
+                            <select onChange={handleChange} value={selectedUser.UserType} name="UserType" className="form-select" required>
+                              {roles.map((role, index) => (
+                                <option key={index} value={role.TypeCode}>{role.TypeCode}</option>
+                              ))}
+                            </select>
+                          </div>
                         </div>
                       </div>
                     </div>

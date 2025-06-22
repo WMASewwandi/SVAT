@@ -80,6 +80,14 @@ const CreateUsers = ({ onUserAdded, branches }) => {
       if (data.Message === "Successfully User Created") {
         toast.success(data.Message);
         document.getElementById("close-modal-user-create").click();
+        setFormData({
+          Name: "",
+          UserName: "",
+          Password: "",
+          UserRole: 1,
+          UserType: "",
+          Inactive: 1,
+        });
         if (onUserAdded) {
           alert();
           onUserAdded();

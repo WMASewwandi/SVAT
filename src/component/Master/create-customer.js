@@ -47,6 +47,22 @@ const CreateCustomer = ({ onCustomerAdded }) => {
       if (data.Message === "Customer Successfully Saved") {
         toast.success(data.Message);
         document.getElementById("close-modal").click();
+        setFormData({
+          CustomerCode: "",
+          CustomerSapCode: "",
+          CustomerName: "",
+          CustomerVatNo: "",
+          CustomerSVatNo: "",
+          CustomerAdd1: "",
+          CustomerAdd2: "",
+          CustomerAdd3: "",
+          CustomerEmail: "",
+          CustomerConNo: "",
+          CustomerFaxNo: "",
+          AllowEditDetails: 0,
+          Inactive: 1,
+          CustomerType: 2,
+        });
         if (onCustomerAdded) {
           onCustomerAdded();
         }

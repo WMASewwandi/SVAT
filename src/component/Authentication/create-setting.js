@@ -36,6 +36,11 @@ const CreateSetting = ({ onGroupAdded }) => {
       if (data.Message === "Setting saved successfully.") {
         toast.success("Group Saved Successfully");
         document.getElementById("close-modal-setting").click();
+        setFormData({
+          Description: "",
+          Value: "",
+          IsSVAT: true,
+        });
         if (onGroupAdded) {
           onGroupAdded();
         }
@@ -84,7 +89,7 @@ const CreateSetting = ({ onGroupAdded }) => {
                 />
               </div>
             </div>
-          </div>   
+          </div>
           <div className="form-group d-flex justify-content-between gap-3 mt-3">
             <button
               id="close-modal-setting"

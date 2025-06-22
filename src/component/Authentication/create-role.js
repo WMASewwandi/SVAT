@@ -36,6 +36,11 @@ const CreateRole = ({ onGroupAdded }) => {
       if (data.Message === "User Saved Successfully") {
         toast.success("Group Saved Successfully");
         document.getElementById("close-modal-user-role").click();
+        setFormData({
+          TypeCode: "",
+          TypeDesc: "",
+          Inactive: 0,
+        });
         if (onGroupAdded) {
           onGroupAdded();
         }
@@ -84,7 +89,7 @@ const CreateRole = ({ onGroupAdded }) => {
                 />
               </div>
             </div>
-          </div>    
+          </div>
 
           <div className="form-group mt-1">
             <div className="row">

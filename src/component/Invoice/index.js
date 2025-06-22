@@ -31,10 +31,10 @@ const Invoice = () => {
     }
   };
   useEffect(() => {
-
-
     fetchInvoice();
   }, []);
+
+  console.log(invoices);
 
   useEffect(() => {
     if (invoices.length > 0) {
@@ -65,7 +65,6 @@ const Invoice = () => {
       day: 'numeric'
     });
   }
-console.log(invoices);
 
   return (
     <Layout>
@@ -91,6 +90,7 @@ console.log(invoices);
                   <th>SVAT ACC No</th>
                   <th>Reference No</th>
                   <th>Net Amount</th>
+                  <th>HAWB</th>
                   <th>Document No</th>
                   <th>Payment Date</th>
                   <th>Action</th>
@@ -104,6 +104,7 @@ console.log(invoices);
                     <td>{invoice.AccountNo}</td>
                     <td>{invoice.RefNo}</td>
                     <td>{formatCurrency(invoice.GrandTotal)}</td>
+                    <td>{invoice.HAWB}</td>
                     <td>{invoice.Document}</td>
                     <td>{formatDate(invoice.PaymentDate)}</td>
                     <td style={{ display: "flex", gap: "10px" }}>
@@ -111,7 +112,7 @@ console.log(invoices);
                       <i className="fa text-primary fa-print" style={{fontSize: '1.2rem'}}></i>
                     </a> */}
                       <InvoiceReport invoice={invoice} />
-                      <DeleteConfirm id={invoice.Id} user={userObject} fetch={fetchInvoice} />
+                      <DeleteConfirm inv={invoice.Id} user={userObject} fetch={fetchInvoice} />
                     </td>
                   </tr>
                 ))}

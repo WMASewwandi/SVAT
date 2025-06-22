@@ -35,8 +35,8 @@ const Layout = ({ children }) => {
       isDropdown: true,
       isDisabled: false,
       children: [
-        { name: "SVAT Invoice Summary", modalTarget: "#ViewReport", pagePath: "InvoiceSummeryReport", reportName: "InvoiceSummery", isDisabled: false },
-        { name: "SVAT Invoice Details", modalTarget: "#ViewReport", pagePath: "InvoiceDetailReport", reportName: "InvoiceDetail", isDisabled: false },
+        { name: "SVAT Invoice Summary", modalTarget: "#ViewReport", pagePath: "InvoiceSummeryReport", reportName: "InvoiceSummeryReport", isDisabled: false },
+        { name: "SVAT Invoice Details", modalTarget: "#ViewReport", pagePath: "InvoiceDetailReport", reportName: "InvoiceDetailedReport", isDisabled: false },
         { name: "SVAT Invoice Cancellation", modalTarget: "#ViewReport", pagePath: "InvoiceCancellationReport", reportName: "InvoiceCancellation", isDisabled: false },
       ],
     },

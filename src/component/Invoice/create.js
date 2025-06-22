@@ -127,7 +127,7 @@ const CreateSVATInvoice = () => {
     setIsCustomerDropdownVisible(true);
     setFilteredCustomers(
       customers.filter((customer) =>
-        customer.CustomerSVatNo.toLowerCase().includes(
+        customer.CustomerCode.toLowerCase().includes(
           searchTermCustomer.toLowerCase()
         )
       )
@@ -587,7 +587,7 @@ const CreateSVATInvoice = () => {
                           placeholder="Search Customer by Code"
                           value={
                             selectedCustomer
-                              ? selectedCustomer.CustomerSVatNo
+                              ? selectedCustomer.CustomerCode
                               : searchTermCustomer
                           }
                           onChange={(e) =>
@@ -615,7 +615,7 @@ const CreateSVATInvoice = () => {
                                   }`}
                                 onClick={() => handleSelectCustomer(customer)}
                               >
-                                {customer.CustomerSVatNo} -{" "}
+                                {customer.CustomerCode} -{" "}
                                 {customer.CustomerName}
                               </li>
                             ))}

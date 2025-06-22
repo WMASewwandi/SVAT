@@ -50,8 +50,8 @@ const CreateItem = ({ onItemAdded }) => {
             ? 1
             : 0
           : name === "Amount"
-          ? parseFloat(value)
-          : value,
+            ? parseFloat(value)
+            : value,
     }));
   };
 
@@ -74,9 +74,27 @@ const CreateItem = ({ onItemAdded }) => {
       if (data.Message === "Item Saved Successfully") {
         toast.success(data.Message);
         document.getElementById("close-modal-item").click();
+        setFormData({
+          ItemCode: "",
+          ItemDesc: "",
+          SapAccCode: "",
+          SapGlCode: "",
+          CurrencyCode: "USD",
+          FormatCalculation: 1,
+          TaxCalculation: 1,
+          SuspendedTaxCalculation: 0,
+          Amount: 0,
+          TaxOption: "Tax Enabled",
+          TaxRate: "",
+          IsAwbRequired: 0,
+          AllowEdit: 0,
+          Inactive: 0,
+          IsInvoiceItem: 1,
+        });
         if (onItemAdded) {
           onItemAdded();
         }
+
       } else {
         toast.error(data.Message);
       }
