@@ -421,7 +421,7 @@ const CreateSVATInvoice = () => {
     if (hasAmount) {
       toast.info("Amount cannot be 0 in any row");
       return;
-    }    
+    }
 
     const postData = {
       AccountNo: selectedCustomer.CustomerSVatNo,
@@ -448,8 +448,8 @@ const CreateSVATInvoice = () => {
       AssesedValue: assessedValue,
       CusdecNo: cusdecNo,
       GrandTotal: total,
-      CreatedUser : userObject.Name,
-      BranchName : userObject.BranchName,
+      CreatedUser: userObject.Name,
+      BranchName: userObject.BranchName,
       SuspendedSVATCharges: suspendedSVATTotal,
       RegulatoryChargeAmount: calculateCodeTotal(),
       InvoiceItems: addedItems.map((item) => ({
@@ -539,12 +539,13 @@ const CreateSVATInvoice = () => {
 
   const calculateCodeTotal = () => {
     return addedItems
-      .filter(item => ["SDO", "SHA", "SSC"].includes(item.ItemCode))
+      .filter(item => item.TaxRate > 0)
       .reduce((sum, item) => {
         const amount = parseFloat(item.Amount) || 0;
         return sum + amount;
       }, 0);
   };
+
 
   const calculateSuspendedSVATTotal = () => {
     return addedItems.reduce((sum, item) => {
