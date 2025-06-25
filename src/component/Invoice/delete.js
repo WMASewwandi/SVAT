@@ -38,6 +38,7 @@ const DeleteConfirm = ({ inv, user, fetch: refetch }) => {
       if (data.Message === "Invoice Deleted successfully") {
         toast.success(data.Message);
         document.getElementById(closeBtnId).click();
+        setReason("");
         refetch();
       }
     } catch (e) {

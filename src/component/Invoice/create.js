@@ -40,6 +40,7 @@ const CreateSVATInvoice = () => {
   const [arrivalDate, setArrivalDate] = useState(today);
   const [cusdecNo, setCusdecNo] = useState(0);
   const [tabPressed, setTabPressed] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const autoNumRef = useRef(null);
 
   const setRefWithAutoNumber = () => {
@@ -464,6 +465,7 @@ const CreateSVATInvoice = () => {
     };
 
     try {
+      setIsSubmitting(true);
       const response = await fetch(`${Base_URL}/api/svatInvoice`, {
         method: "POST",
         headers: {
@@ -486,6 +488,8 @@ const CreateSVATInvoice = () => {
       }
     } catch (error) {
       console.error("Error:", error);
+    }finally{
+      setIsSubmitting(false);
     }
   };
 
@@ -1138,7 +1142,7 @@ const CreateSVATInvoice = () => {
                 >
                   Cancel
                 </button>
-                <button type="submit" className="btn btn-sm btn-theme">
+                <button type="submit" disabled={isSubmitting} className="btn btn-sm btn-theme">
                   Submit
                 </button>
               </div>
