@@ -14,6 +14,7 @@ import Users from "./component/Authentication";
 import UserRole from "./component/Authentication/user-role";
 import Settings from "./component/Authentication/settings";
 import Home from "./component/Home";
+import EditSVATInvoice from "./component/Invoice/edit";
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
           <Route path="/dhl-svat/master/customers" element={<CustomerMaster />} />
           <Route path="/dhl-svat/invoice" element={<Invoice />} />
           <Route path="/dhl-svat/invoice/create" element={<CreateInvoice />} />
+          <Route path="/dhl-svat/invoice/edit" element={<EditSVATInvoice />} />
           <Route path="/dhl-svat/report/customer" element={<ReportCustomer />} />
           <Route path="/dhl-svat/report/bulk-invoice" element={<ReportBulkInvoice />} />
           <Route path="/dhl-svat/authentication/users" element={<Users />} />

@@ -206,7 +206,7 @@ const Users = () => {
     const tableData = table.querySelectorAll("thead th");
     const headers = [];
     tableData.forEach((header, index) => {
-      if (index !== 6 && index !== 0) {
+      if (index !== 5 && index !== 0) {
         headers.push(header.innerText);
       }
     });
@@ -216,8 +216,7 @@ const Users = () => {
         user.Name,
         user.Username,
         user.UserType,
-        user.AddedDateTime,
-        user.Inactive ? "true" : "false",
+        user.Inactive ? "false" : "true",
       ];
     });
 

@@ -492,10 +492,9 @@ const InvoiceReport = ({ invoice }) => {
   );
   return (
     <>
-      <button className="btn btn-sm" type="button" onClick={handleOpen}>
-        <i className="fa text-primary fa-print" style={{ fontSize: "1.2rem" }}></i>
-      </button>
-
+      <a href="#" type="button" onClick={(e) => { e.preventDefault(); void handleOpen(); }}>
+        <i className="fa fa-print text-primary" style={{ fontSize: '1.2rem' }}></i>
+      </a>
       <Modal
         open={open}
         onClose={handleClose}
