@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { toast } from "react-toastify";
 import Report_URL from "../../Base/report";
+import Catelogue from "../../Base/catelogue";
 
 const CreateReport = ({ report, user }) => {
     const fromDateRef = useRef();
@@ -48,7 +49,7 @@ const CreateReport = ({ report, user }) => {
         }
 
         const firstName = user.Name.split(" ")[0];
-        const url = `${Report_URL}StartDate=${fromDate}&EndDate=${toDate}&reportName=${report.reportName}.rpt&currentUser=${firstName}&format=${format}`;
+        const url = `${Report_URL}/PrintDocuments?InitialCatalog=${Catelogue}&StartDate=${fromDate}&EndDate=${toDate}&reportName=${report.reportName}.rpt&currentUser=${firstName}&format=${format}`;
 
         window.open(url, "_blank");
 

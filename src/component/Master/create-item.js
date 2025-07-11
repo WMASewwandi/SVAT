@@ -18,6 +18,7 @@ const CreateItem = ({ onItemAdded }) => {
     IsAwbRequired: 0,
     AllowEdit: 0,
     Inactive: 0,
+    RevenueType: null,
     IsInvoiceItem: 1,
   });
 
@@ -43,16 +44,18 @@ const CreateItem = ({ onItemAdded }) => {
     const { name, value, type, checked } = e.target;
 
     setFormData((prevData) => ({
-      ...prevData,
-      [name]:
-        type === "checkbox"
-          ? checked
-            ? 1
-            : 0
-          : name === "Amount"
-            ? parseFloat(value)
-            : value,
-    }));
+    ...prevData,
+    [name]:
+      type === "checkbox"
+        ? checked
+          ? 1
+          : 0
+        : name === "Amount"
+        ? parseFloat(value)
+        : name === "RevenueType"
+        ? parseInt(value)
+        : value,
+  }));
   };
 
   const handleSubmit = async (e) => {
@@ -90,6 +93,7 @@ const CreateItem = ({ onItemAdded }) => {
           AllowEdit: 0,
           Inactive: 0,
           IsInvoiceItem: 1,
+          RevenueType: null,
         });
         if (onItemAdded) {
           onItemAdded();
@@ -248,6 +252,20 @@ const CreateItem = ({ onItemAdded }) => {
                   />
                   <span className="input-group-text">%</span>
                 </div>
+              </div>
+            </div>
+          </div>
+          <div className="form-group mt-1">
+            <div className="row">
+              <div className="col-4">
+                <label className="text-dark">Revenue Type</label>
+              </div>
+              <div className="col-8 d-flex">
+                <select onChange={handleChange} name="RevenueType" className="form-select form-control form-select-sm">
+                  <option selected>Select Revenue Type</option>
+                  <option value={1}>DHL Revenue</option>
+                  <option value={2}>Regulatory Charge</option>
+                </select>
               </div>
             </div>
           </div>

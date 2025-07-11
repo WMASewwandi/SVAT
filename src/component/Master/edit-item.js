@@ -19,8 +19,9 @@ const EditItem = ({ fetchItems, item }) => {
     AllowEdit: 0,
     Inactive: 0,
     IsInvoiceItem: 1,
+    RevenueType: null,
   });
-  
+
   useEffect(() => {
     if (item) {
       setFormData({
@@ -38,6 +39,7 @@ const EditItem = ({ fetchItems, item }) => {
         IsAwbRequired: 0,
         AllowEdit: item.AllowEdit || 0,
         Inactive: item.Inactive || 0,
+        RevenueType: item.RevenueType || null,
         IsInvoiceItem: 1,
       });
     }
@@ -63,24 +65,26 @@ const EditItem = ({ fetchItems, item }) => {
   }, []);
 
   const handleChange = (e) => {
-  const { name, value, type, checked } = e.target;
+    const { name, value, type, checked } = e.target;
 
-  setFormData((prevData) => ({
-    ...prevData,
-    [name]:
-      type === "checkbox"
-        ? checked
-          ? 1
-          : 0
-        : name === "Amount"
-          ? parseFloat(value)
-          : name === "TaxOption"
-            ? value
-            : value,
-  }));
-};
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]:
+        type === "checkbox"
+          ? checked
+            ? 1
+            : 0
+          : name === "Amount"
+            ? parseFloat(value)
+            : name === "RevenueType"
+              ? parseInt(value)
+              : name === "TaxOption"
+                ? value
+                : value,
+    }));
+  };
 
-  
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -121,7 +125,7 @@ const EditItem = ({ fetchItems, item }) => {
                 <label className="text-dark">Item Code</label>
               </div>
               <div className="col-8">
-                <input                  
+                <input
                   required
                   type="text"
                   name="ItemCode"
@@ -237,6 +241,20 @@ const EditItem = ({ fetchItems, item }) => {
                     Suspended Tax Enabled
                   </label>
                 </div>
+              </div>
+            </div>
+          </div>
+          <div className="form-group mt-1">
+            <div className="row">
+              <div className="col-4">
+                <label className="text-dark">Revenue Type</label>
+              </div>
+              <div className="col-8 d-flex">
+                <select value={formData.RevenueType || null} onChange={handleChange} name="RevenueType" className="form-select form-control form-select-sm">
+                  <option selected>Select Revenue Type</option>
+                  <option value={1}>DHL Revenue</option>
+                  <option value={2}>Regulatory Charge</option>
+                </select>
               </div>
             </div>
           </div>

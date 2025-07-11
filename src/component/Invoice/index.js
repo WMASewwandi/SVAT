@@ -5,6 +5,7 @@ import InvoiceReport from "./invoice-report";
 import Report_URL from "../../Base/report";
 import DeleteConfirm from "./delete";
 import { ToastContainer } from "react-toastify";
+import Catelogue from "../../Base/catelogue";
 
 const Invoice = () => {
   const [invoices, setInvoices] = useState([]);
@@ -106,16 +107,18 @@ const Invoice = () => {
                     <td>{invoice.Document}</td>
                     <td>{formatDate(invoice.PaymentDate)}</td>
                     <td>
-                      {/* <a href={`${Report_URL}reportName=Invoice.rpt&documentNo=${invoice.InvoiceNo}&currentUser=${firstName}`} target="_blank">
+                      {/* <a href={`${Report_URL}reportName=SVATInvoice.rpt&invoiceId=${invoice.Id}&currentUser=${firstName}`} target="_blank">
                       <i className="fa text-primary fa-print" style={{fontSize: '1.2rem'}}></i>
                     </a> */}
                       <div style={{ display: "flex", gap: "10px" }}>
                         <a href={`/dhl-svat/invoice/edit?id=${invoice.Id}`}>
                           <i className="fa text-primary fa-edit" style={{ fontSize: '1.2rem' }}></i>
                         </a>
-                        <InvoiceReport invoice={invoice} />
+                        {/* <InvoiceReport invoice={invoice} /> */}
+                        <a href={`${Report_URL}/PrintSVATInvoiceDocuments?InitialCatalog=${Catelogue}&reportName=SVATInvoice.rpt&invoiceId=${invoice.Id}&currentUser=${firstName}`} target="_blank">
+                          <i className="fa text-primary fa-print" style={{ fontSize: '1.2rem' }}></i>
+                        </a>
                         <DeleteConfirm inv={invoice.Id} user={userObject} fetch={fetchInvoice} />
-
                       </div>
                     </td>
                   </tr>

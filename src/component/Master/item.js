@@ -73,7 +73,7 @@ const ItemMaster = () => {
                   <th>Sap Account Code</th>
                   <th>Sap GL Code</th>
                   <th>Amount</th>
-                  <th>Tax Option</th>
+                  <th>Revenue Type</th>
                   <th>Tax Rate (%)</th>
                   <th>Action</th>
                 </tr>
@@ -87,7 +87,7 @@ const ItemMaster = () => {
                     <td>{item.SapAccCode ? item.SapAccCode : "-"}</td>
                     <td>{item.SapGlCode ? item.SapGlCode : "-"}</td>
                     <td>{item.Amount ? item.Amount : "-"}</td>
-                    <td>{item.TaxOption}</td>
+                    <td>{item.RevenueType === 1 ? "DHL Revenue" : (item.RevenueType === 2 ? "Regulatory Charge" : "")}</td>
                     <td>{item.TaxRate ?? "-"}</td>
                     <td>
                       <button
