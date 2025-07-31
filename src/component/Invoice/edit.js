@@ -15,7 +15,7 @@ const EditSVATInvoice = () => {
 
   const inputRef = useRef(null);
   const lastAmountRef = useRef(null);
-
+  const [settingValue, setSettingValue] = useState();
   const today1 = new Date();
   today1.setDate(today1.getDate() + 7);
   const formattedDueDate = today1.toISOString().split("T")[0];
@@ -164,7 +164,28 @@ const EditSVATInvoice = () => {
         console.error("Error:", error);
       }
     };
+    const fetchSetting = async () => {
+      try {
+        const response = await fetch(`${Base_URL}/api/Settings?name=SVATPercentage`, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
 
+        if (!response.ok) {
+          throw new Error("fetching failed");
+        }
+
+        const data = await response.json();
+        const value = data[0];
+        setSettingValue(value.Value);
+      } catch (error) {
+        console.error("Error:", error);
+      }
+    };
+
+    fetchSetting();
     fetchItems();
     fetchCustomers();
   }, []);
@@ -516,6 +537,7 @@ const EditSVATInvoice = () => {
       BranchName: userObject.BranchName,
       SuspendedSVATCharges: suspendedSVATTotal,
       RegulatoryChargeAmount: calculateCodeTotal(),
+      SuspendedTaxPercentage: parseFloat(settingValue),
       InvoiceItems: addedItems.map((item) => ({
         ItemId: 2,
         ItemCode: item.ItemCode,
@@ -1161,7 +1183,7 @@ const EditSVATInvoice = () => {
                         <th className="p-1 text-end" colSpan="1">
                           Suspended VAT Charges
                         </th>
-                        <th className="p-1">
+                        <th className="p-1 d-flex gap-1">
                           <input
                             type="text"
                             className="form-control form-control-sm"

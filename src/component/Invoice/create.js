@@ -7,6 +7,7 @@ import SearchCustomer from "./search-customer";
 const CreateSVATInvoice = () => {
   const inputRef = useRef(null);
   const lastAmountRef = useRef(null);
+  const [settingValue, setSettingValue] = useState();
   const today = new Date().toISOString().split('T')[0];
   const today1 = new Date();
   today1.setDate(today1.getDate() + 7);
@@ -101,6 +102,28 @@ const CreateSVATInvoice = () => {
       }
     };
 
+    const fetchSetting = async () => {
+      try {
+        const response = await fetch(`${Base_URL}/api/Settings?name=SVATPercentage`, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+
+        if (!response.ok) {
+          throw new Error("fetching failed");
+        }
+
+        const data = await response.json();
+        const value = data[0];
+        setSettingValue(value.Value);
+      } catch (error) {
+        console.error("Error:", error);
+      }
+    };
+
+    fetchSetting();
     fetchItems();
     fetchCustomers();
   }, []);
@@ -311,15 +334,6 @@ const CreateSVATInvoice = () => {
     }
   };
 
-  // const handleItemInputChange = (index, field, value) => {
-  //   const updatedItems = [...addedItems];
-  //   updatedItems[index] = {
-  //     ...updatedItems[index],
-  //     [field]: value,
-  //   };
-  //   setAddedItems(updatedItems);
-  // };
-
   const handleItemInputChange = (index, field, value) => {
     const updatedItems = [...addedItems];
     let updatedItem = {
@@ -452,9 +466,10 @@ const CreateSVATInvoice = () => {
       CreatedUser: userObject.Name,
       BranchName: userObject.BranchName,
       SuspendedSVATCharges: suspendedSVATTotal,
+      SuspendedTaxPercentage: parseFloat(settingValue),
       RegulatoryChargeAmount: calculateCodeTotal(),
       InvoiceItems: addedItems.map((item) => ({
-        ItemId: 2,
+        ItemId: item.Id,
         ItemCode: item.ItemCode,
         ItemDesc: item.ItemDesc,
         Tax: "",
@@ -488,7 +503,7 @@ const CreateSVATInvoice = () => {
       }
     } catch (error) {
       console.error("Error:", error);
-    }finally{
+    } finally {
       setIsSubmitting(false);
     }
   };

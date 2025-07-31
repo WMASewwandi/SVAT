@@ -40,6 +40,7 @@ const UserRights = ({ role, fetchItems }) => {
       items: [
         { typeCode: role.TypeCode, pagePath: "User" },
         { typeCode: role.TypeCode, pagePath: "UserGroup" },
+        { typeCode: role.TypeCode, pagePath: "Settings" },
       ],
     },
   ];

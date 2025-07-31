@@ -47,6 +47,7 @@ const Layout = ({ children }) => {
       children: [
         { name: "Users", path: "/dhl-svat/authentication/users", pagePath: "User", isDisabled: false },
         { name: "User Groups", path: "/dhl-svat/authentication/roles", pagePath: "UserGroup", isDisabled: false },
+        { name: "Settings", path: "/dhl-svat/authentication/settings", pagePath: "Settings", isDisabled: false },
       ],
     },
   ]);
